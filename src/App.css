@@ -1,38 +1,126 @@
-.App {
-  text-align: center;
+.application-wrapper {
+
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10px;
+}
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.tasks-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-bottom:10px;
 }
 
-.App-link {
-  color: #61dafb;
+/* Task manager card designs */
+.taskManagerCardWrapper{
+  border: 1px solid black;
+  margin: 10px;
+  padding: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.card-title {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+  display: flex;
+}
+.card-title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.title-edit-card {
+  width: 70%;
+  margin-right: 20px;
+}
+
+.desc-edit-card {
+  width: 20%;
+}
+
+.card-description {
+  width: 100%;
+  font-size: 12px;
+}
+.textarea-wrapper {
+    display: flex;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  button {
+    font-size: 12px;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.no-tasks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.modal-base {
+  top: 14%;
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 50%;
+  height: 50%;
+  opacity: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.modal-base_after-open {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-base_before-close {
+  transform: scale(.2);
+  opacity: 0;
+}
+
+.overlay-base {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(66, 66, 66, .5);
+  opacity: 0;
+	transition: all 0.3s ease-out;
+}
+
+.overlay-base_after-open {
+  opacity: 1;
+}
+
+.overlay-base_before-close {
+  opacity: 0;
+}
+
+.editable-modal-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
