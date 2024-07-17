@@ -67,6 +67,7 @@
   margin-top: 10px;
   button {
     font-size: 12px;
+    margin-right: 5px;
   }
 }
 
@@ -77,50 +78,21 @@
   font-size: 18px;
 }
 
-.modal-base {
-  top: 14%;
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  border: 1px solid #888;
-  width: 50%;
-  height: 50%;
-  opacity: 0;
-  transition: all 0.2s ease-in-out;
-}
-
-.modal-base_after-open {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.modal-base_before-close {
-  transform: scale(.2);
-  opacity: 0;
-}
-
-.overlay-base {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(66, 66, 66, .5);
-  opacity: 0;
-	transition: all 0.3s ease-out;
-}
-
-.overlay-base_after-open {
-  opacity: 1;
-}
-
-.overlay-base_before-close {
-  opacity: 0;
-}
-
-.editable-modal-wrapper {
-  padding: 20px;
+.modalClassName {
+  background: rgb(255, 255, 255);
+  border-radius: 5px;
+  box-shadow: rgba(0,0,0,0.15) 0px 5px 10px 3px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  max-height: calc(-128px + 100vh);
+  max-width: calc(-128px + 100vw);
+  position: relative;
+  padding: 16px;
+  height: max-content;
+  min-height: 300px;
+  width: 600px;
 }
+
+
+

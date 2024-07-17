@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ITaskManagerCard } from "./TaskManagerCard.interface";
 import { v4 as uuidv4 } from "uuid";
 
 function TaskManagerCard(props: ITaskManagerCard) {
   const { taskInfo, onSaveHandler, onDeleteHandler } = props;
-  console.log({taskInfo})
   const [disable, setIsDisable] = useState<boolean>(true);
-  const [titleVal, setTitleVal] = useState<string>("");
-  const [descVal, setDescVal] = useState<string>("");
-  const [prio, setPrio] = useState<number>(0);
+  const [titleVal, setTitleVal] = useState<string>(taskInfo.title);
+  const [descVal, setDescVal] = useState<string>(taskInfo.description);
+  const [prio, setPrio] = useState<number>(taskInfo.priority);
+  useEffect(() => {
+    setTitleVal(taskInfo.title);
+    setDescVal(taskInfo.description);
+    setPrio(taskInfo.priority);
+  }, [taskInfo]);
   const onEdit = () => {
     setIsDisable(false);
   };
@@ -57,12 +61,15 @@ function TaskManagerCard(props: ITaskManagerCard) {
         )}
       </div>
       <div className="textarea-wrapper">
-        <textarea
-          onChange={onChangeDesc}
-          defaultValue={taskInfo.description}
-          disabled={disable}
-          className="card-description"
-        />
+        {disable ? (
+          <div>{taskInfo.description}</div>
+        ) : (
+          <textarea
+            onChange={onChangeDesc}
+            defaultValue={taskInfo.description}
+            className="card-description"
+          />
+        )}
       </div>
       <div className="card-buttons">
         <button onClick={onEdit}>Edit</button>

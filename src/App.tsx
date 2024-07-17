@@ -7,7 +7,7 @@ import {
   Priority,
 } from "./common/TaskManagerCard/TaskManagerCard.interface";
 import { v4 as uuidv4 } from "uuid";
-import Modal from "react-modal";
+import Modal from "./common/Modal/Modal";
 
 function App() {
   const [taskQueue, setTaskQueue] = useState<Array<ITaskInfo>>(() => {
@@ -18,17 +18,19 @@ function App() {
   const [titleVal, setTitleVal] = useState<string>("");
   const [descVal, setDescVal] = useState<string>("");
   const addTaskHandler = () => {
+    setTitleVal("");
+    setDescVal("");
     setIsOpen(!isOpen);
   };
   const onDeleteHandler = (taskInfo: ITaskInfo) => {
     const newTasks = taskQueue.filter((task) => task.id !== taskInfo.id);
-    const idx = taskQueue.findIndex((e) => (e.id = taskInfo.id));
-    const localData = localStorage.getItem("taskQueue");
+    localStorage.setItem("taskQueue", JSON.stringify([...newTasks]));
+
     setTaskQueue([...newTasks]);
   };
   const editSavedHandler = (editedTaskId: string, newTaskInfo: ITaskInfo) => {
     const newData = [...taskQueue];
-    const idx = taskQueue.findIndex((e) => (e.id = editedTaskId));
+    const idx = taskQueue.findIndex((e) => e.id === editedTaskId);
     newData.splice(idx, 1, newTaskInfo);
     const localData = localStorage.getItem("taskQueue");
     if (localData) {
@@ -56,11 +58,7 @@ function App() {
   const onChangeDesc = (e: any) => {
     setDescVal(e.target.value);
   };
-  const onRequesClose = () => {
-    setIsOpen(!isOpen);
-    setTitleVal("");
-    setDescVal("");
-  };
+
   return (
     <div className="application-wrapper">
       <Header title="Task Manager Application"></Header>
@@ -86,42 +84,29 @@ function App() {
       ) : (
         <div className="no-tasks">No tasks added</div>
       )}
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={onRequesClose}
-        className={{
-          base: "modal-base",
-          afterOpen: "modal-base_after-open",
-          beforeClose: "modal-base_before-close",
-        }}
-        overlayClassName={{
-          base: "overlay-base",
-          afterOpen: "overlay-base_after-open",
-          beforeClose: "overlay-base_before-close",
-        }}
-        shouldCloseOnOverlayClick={true}
-        closeTimeoutMS={2000}
-      >
-        <div className="editable-modal-wrapper">
-          <div className="editable-modal-title">
-            <input
-              placeholder="Title"
-              defaultValue={titleVal}
-              onChange={onChangeTitle}
-            ></input>
+      {isOpen && (
+        <Modal modalClassName={"modalClassName"}>
+          <div className="editable-modal-wrapper">
+            <div className="editable-modal-title">
+              <input
+                placeholder="Title"
+                defaultValue={titleVal}
+                onChange={onChangeTitle}
+              ></input>
+            </div>
+            <div>
+              <textarea
+                placeholder="Enter Description"
+                defaultValue={descVal}
+                onChange={onChangeDesc}
+              ></textarea>
+            </div>
+            <div>
+              <button onClick={onSaveHandler}>Save</button>
+            </div>
           </div>
-          <div>
-            <textarea
-              placeholder="Enter Description"
-              defaultValue={descVal}
-              onChange={onChangeDesc}
-            ></textarea>
-          </div>
-          <div>
-            <button onClick={onSaveHandler}>Save</button>
-          </div>
-        </div>
-      </Modal>
+        </Modal>
+      )}
     </div>
   );
 }
